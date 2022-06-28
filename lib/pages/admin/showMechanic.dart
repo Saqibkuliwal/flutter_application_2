@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+
 
 class showMechanics extends StatefulWidget {
   const showMechanics({ Key? key }) : super(key: key);
@@ -33,7 +35,7 @@ class _showMechanicsState extends State<showMechanics> {
     );
   }
   getAllMechanic() async{
-      String url="http://192.168.18.93/workshopp/api/customer/mechanics";
+      String url="http://${ip}/workshopp/api/customer/mechanics";
       var response= await http.get(Uri.parse(url));
       if(response.statusCode==200){
         surveyorList=json.decode(response.body);

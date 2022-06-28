@@ -3,6 +3,8 @@ import 'package:flutter_application_2/pages/admin/mechanic.dart';
 import 'package:flutter_application_2/pages/admin/surveyor.dart';
 import 'package:http/http.dart' as https;
 
+import '../../main.dart';
+
 class rSurveyor extends StatefulWidget {
   const rSurveyor({Key? key}) : super(key: key);
 
@@ -55,7 +57,7 @@ class _rSurveyorState extends State<rSurveyor> {
                   onPressed: () async {
                     String mobilenumber = phonecontroller.text;
                     String address =
-                        "http://192.168.18.93/workshopp/api/customer/DeleteSurveyor?mobile_no=$mobilenumber";
+                        "http://${ip}/workshopp/api/customer/DeleteSurveyor?mobile_no=$mobilenumber";
                     var response = await https.get(Uri.parse(address));
                     if (response.statusCode == 200) {
                       print("deleted");

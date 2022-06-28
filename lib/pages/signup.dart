@@ -3,6 +3,8 @@ import 'package:flutter_application_2/pages/ap.dart';
 import 'package:flutter_application_2/pages/welcome.dart';
 import 'package:http/http.dart' as https;
 
+import '../main.dart';
+
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
 
@@ -140,7 +142,7 @@ class _SignupState extends State<Signup> {
                       child: Text('SIGN UP'),
                       onPressed: () async {
                         String address =
-                            "http://192.168.137.1/workshopp/api/customer/signup";
+                            "http://${ip}/workshopp/api/customer/signup";
                         var data = {
                           "name": namecontroller.text,
                           "mobile_no": phonecontroller.text,

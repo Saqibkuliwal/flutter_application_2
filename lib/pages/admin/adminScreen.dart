@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/pages/admin/bottomServeyor.dart';
 import 'package:flutter_application_2/pages/admin/mechanic.dart';
 import 'package:flutter_application_2/pages/admin/surveyor.dart';
+import 'package:flutter_application_2/pages/bill.dart';
 
 class Admin extends StatefulWidget {
   const Admin({Key? key}) : super(key: key);
@@ -79,6 +80,12 @@ class _AdminState extends State<Admin> {
                   Container(
                       padding: EdgeInsets.all(29),
                       child: GestureDetector(
+                        onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => bill()));
+                          },
                           child: Text(
                         '➌    Reports  ↠',
                         style: TextStyle(

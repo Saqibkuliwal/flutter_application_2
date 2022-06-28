@@ -7,6 +7,8 @@ import 'package:flutter_application_2/pages/showvehicle.dart';
 import 'package:http/http.dart' as https;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
+
 class Vehicle extends StatefulWidget {
   @override
   State<Vehicle> createState() => _VehicleState();
@@ -141,7 +143,7 @@ class _VehicleState extends State<Vehicle> {
                       child: ElevatedButton(
                           onPressed: () async {
                             String address =
-                                "http://192.168.137.1/workshopp/api/customer/addvehicle";
+                                "http://${ip}/workshopp/api/customer/addvehicle";
                             var data = {
                               "name": vnamecontroller.text,
                               "reg_no": vnumbercontroller.text,

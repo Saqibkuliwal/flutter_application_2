@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/pages/ap.dart';
 import 'package:flutter_application_2/pages/appointment.dart';
+import 'package:flutter_application_2/pages/bill.dart';
 import 'package:flutter_application_2/pages/showvehicle.dart';
 import 'package:flutter_application_2/pages/signup.dart';
 import 'package:flutter_application_2/pages/vehicle.dart';
 import 'package:flutter/src/widgets/icon.dart';
+import 'package:flutter_application_2/yourappoint.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key }) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -21,20 +23,7 @@ class _HomeState extends State<Home> {
         title: const Text('WORKSHOP'),
         automaticallyImplyLeading: false,
       ),
-      body: PageView.builder(
-        scrollDirection: Axis.vertical,
-        itemBuilder: (_, index) {
-          return Container(
-            width: double.maxFinite,
-            height: double.maxFinite,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: const AssetImage('img/t.png'),
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.3), BlendMode.dstATop)),
-            ),
-            child: GridView.count(
+      body:  GridView.count(
               padding: const EdgeInsets.only(
                 top: 17.0,
               ),
@@ -78,9 +67,9 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Appointment()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const showVehicle()));
                   },
                   child: Card(
                     color: Colors.transparent,
@@ -93,7 +82,7 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Home())),
+                      MaterialPageRoute(builder: (context) => const yourAppoint())),
                   child: Card(
                     color: Colors.transparent,
                     child: Container(
@@ -105,7 +94,7 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Home())),
+                      MaterialPageRoute(builder: (context) => const bill())),
                   child: Card(
                     color: Colors.transparent,
                     child: Container(
@@ -130,8 +119,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           );
-        },
-      ),
-    );
+        
+      
+    
   }
 }

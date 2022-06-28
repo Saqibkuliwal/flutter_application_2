@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/pages/admin/mechanic.dart';
 import 'package:http/http.dart' as https;
 
+import '../../main.dart';
+
 
 class aMechanic extends StatefulWidget {
   const aMechanic({ Key? key }) : super(key: key);
@@ -103,7 +105,7 @@ TextEditingController namecontroller = new TextEditingController();
                       child: Text('Add'),
                       onPressed: () async {
                         String address =
-                            "http://192.168.18.93/workshopp/api/customer/signup";
+                            "http://${ip}/workshopp/api/customer/signup";
                         var data = {
                           "name": namecontroller.text,
                           "mobile_no": phonecontroller.text,

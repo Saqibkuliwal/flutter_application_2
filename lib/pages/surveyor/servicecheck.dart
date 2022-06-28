@@ -4,20 +4,24 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/pages/home.dart';
+import 'package:flutter_application_2/pages/surveyor/mavailable.dart';
+import 'package:flutter_application_2/pages/surveyor/surveyorPanel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../main.dart';
 import 'package:http/http.dart' as http;
 
-class Services extends StatefulWidget {
-  Services({Key? key, required this.app_id}) : super(key: key);
-  int app_id;
+import '../../main.dart';
+
+class Servicess extends StatefulWidget {
+  Servicess({Key? key, required this.app_id}) : super(key: key);
+  String app_id;
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<Servicess> createState() => _ServicessState();
 }
 
 List<String> servicename = [
+  //break, wheel
   'Oil change',
   'Filter change',
   'Wheel Alignment',
@@ -32,17 +36,15 @@ List<int> servicid = [];
 List<bool> checkBoxes = [false, false, false, false, false, false];
 int ttlprice = 0;
 int ttltime = 0;
-// List<String> selectedService = [];
-// List<int> selectedPrice = [];
-// List<int> selectedTime = [];
 
-class _ServicesState extends State<Services> {
+class _ServicessState extends State<Servicess> {
   List? serviceall = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     servicesall();
+    updateSelectedServices();
   }
 
   @override
@@ -100,14 +102,26 @@ class _ServicesState extends State<Services> {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          BookServices();
+        onPressed: () async {
+          await clearServices();
+          await BookServices();
+          await appstatus();
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Home()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AvailableMechanic(
+                        appNumber: widget.app_id,
+                      )));
         },
         child: Text("OK"),
       ),
     );
+  }
+
+  clearServices() async {
+    String url =
+        "http://${ip}/workshopp/api/customer/clearService?apId=${widget.app_id}";
+    var response = await http.get(Uri.parse(url));
   }
 
   BookServices() async {
@@ -128,7 +142,19 @@ class _ServicesState extends State<Services> {
           print('data saved');
         }
       }
+      setState(() {});
     }
+  }
+
+  appstatus() async {
+    String url =
+        "http://${ip}/workshopp/api/customer/appstatus?appId=${widget.app_id}";
+
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      print('updated.....................');
+    }
+    setState(() {});
   }
 
   servicesall() async {
@@ -143,6 +169,31 @@ class _ServicesState extends State<Services> {
       print('error');
     }
     setState(() {});
+  }
+
+  updateSelectedServices() async {
+    String url =
+        "http://${ip}/workshopp/api/customer/checkSelectedService?apId=${widget.app_id}";
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      print(response.body);
+      List list = json.decode(response.body);
+      for (int i = 0; i < serviceall!.length; i++) {
+        for (int j = 0; j < list.length; j++) {
+          if (serviceall![i]['name'] == list[j]['name'].toString()) {
+            print('Testing.....................2');
+            checkBoxes[i] = true;
+            ttltime = ttltime + 30;
+            ttlprice = ttlprice + serviceprice[i];
+          }
+        }
+
+        setState(() {});
+      }
+      setState(() {});
+    } else {
+      print('error');
+    }
   }
 
   loading() {
@@ -180,6 +231,7 @@ class _ServicesState extends State<Services> {
                         checkBoxes[index] = value!;
                         if (ttltime == 120) {
                           if (checkBoxes[index] == false) {
+                            //listname[index]['column']
                             ttlprice = ttlprice - serviceprice[index];
                             ttltime = ttltime - serviceTime[index];
                             setState(() {});

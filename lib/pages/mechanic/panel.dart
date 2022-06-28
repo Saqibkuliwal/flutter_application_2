@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/pages/mechanic/service_request_view.dart';
 import 'package:flutter_application_2/pages/surveyor/request.dart';
 
 import '../ap.dart';
 
-class surveyorPanel extends StatefulWidget {
-  const surveyorPanel({Key? key}) : super(key: key);
+class mechPanel extends StatefulWidget {
+ mechPanel({Key? key , required this.userName}) : super(key: key);
 
+  String userName;
   @override
-  State<surveyorPanel> createState() => _surveyorPanelState();
+  State<mechPanel> createState() => _mechPanelState();
 }
 
-class _surveyorPanelState extends State<surveyorPanel> {
+class _mechPanelState extends State<mechPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 74, 125, 101),
+      backgroundColor: Color.fromARGB(194, 163, 43, 243),
       appBar: AppBar(
-        title: Text('DashBoard', style: TextStyle(color: Colors.white)),
+        title: Text(widget.userName, style: TextStyle(color: Colors.white)),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 137, 112, 237),
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 30),
@@ -32,14 +34,16 @@ class _surveyorPanelState extends State<surveyorPanel> {
                 // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('img/survey.png'),
+                    image: AssetImage('img/mechanic.png'),
                     fit: BoxFit.fill,
                   ),
                   shape: BoxShape.circle,
                 ),
               ),
               GestureDetector(
-                onTap: () {Navigator.push(context, MaterialPageRoute(builder:(context)=> Request()));},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=>ServiceRequestView(name: widget.userName)));
+                  print(widget.userName);},
                 child: Container(
                   padding: EdgeInsets.only(top: 30),
                   child: Column(
@@ -54,8 +58,8 @@ class _surveyorPanelState extends State<surveyorPanel> {
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.yellow,
-                                  Colors.green,
+                                  Color.fromARGB(255, 34, 14, 104),
+                                  Color.fromARGB(255, 141, 208, 241),
                                 ]),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
@@ -65,7 +69,7 @@ class _surveyorPanelState extends State<surveyorPanel> {
                             children: [
                               const Text(""),
                               const Text(
-                                "Assignment Requests",
+                                "TO DO",
                                 style: TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.w600,
@@ -75,7 +79,7 @@ class _surveyorPanelState extends State<surveyorPanel> {
                                   padding: const EdgeInsets.all(8.0),
                                   decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.white),
+                                      color: Color.fromARGB(255, 255, 255, 255)),
                                   child: const Icon(
                                     Icons.arrow_right_alt_outlined,
                                     size: 25.0,

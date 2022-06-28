@@ -24,11 +24,11 @@ class MyRadioListTile<T> extends StatelessWidget {
       
       child: Container(
         height: 56,
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
             _customRadioButton,
-            SizedBox(width: 12),
+            SizedBox(width: 10),
             if (title != null) title,
           ],
         ),
